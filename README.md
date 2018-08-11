@@ -9,7 +9,9 @@ To run on local:
 		c) operations - http://localhost:8000
 		d) django-admin - http://localhost:8000/admin
 
-TODO:
-	1) Deployment Pending (My aws account is suspended for some reason..Will resolve/create and then deploy
-	2) Currently using sqlite instead mysql as db for simplicity, No code change is required to use mysql except settings
-	3) Version 2 solution
+NOTE:
+	1) [TODO] Deployment Pending (My aws account is suspended for some reason..Will resolve/create and then deploy
+	2) [hack] Currently using sqlite instead mysql as db for simplicity, No code change is required to use mysql except settings
+	3) [hack] Auto completion of ride is currently triggered from driverapp after 5minutes of time interval but will not 		work if drivers app is reloaded, although it mocks actual product behaviour as completion API should be triggered 	     by driver only
+	   Robust solution would be to do asynchronously on backend.
+	4) [TODO] Version 2 solution
