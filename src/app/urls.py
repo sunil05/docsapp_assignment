@@ -22,6 +22,7 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.get_dashboard),
+    path('get_rides', views.get_rides),
     path('customerapp.html', include(customer.urls)),
     path('driverapp.html', include(driver.urls)),
     path('customer/', include(customer.urls)),

@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from customer.views import get_app
+from customer.views import get_app, request_cab
 
 urlpatterns = [
-    path('', get_app)
+    path('', get_app),
+    path('request_cab', request_cab)
 ]

@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from customer.views import get_app
+from driver.views import get_app, accept_request, get_rides
 
 urlpatterns = [
     path('', get_app),
-
+    path('accept_request', accept_request),
+    path('<int:driver_id>/get_rides', get_rides)
 
 ]
