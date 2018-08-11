@@ -78,6 +78,14 @@
             $.ajax({
                 type: "GET",
                 url: service+'/accept_request/'+ride_id,
+             });
+             setTimeout(complete_ride(ride_id), 300000);
+         }
+
+        function complete_ride(ride_id){
+            $.ajax({
+                type: "GET",
+                url: service+'/complete_ride/'+ride_id,
             })
         }
 

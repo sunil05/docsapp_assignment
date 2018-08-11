@@ -5,10 +5,8 @@ from app.models import Rides
 from driver.models import Driver
 from django.db.models import Q
 from app.serializers import RidesSerializer
-import asyncio, time
 import itertools
 from datetime import datetime
-from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def get_app(request):
@@ -28,7 +26,6 @@ def get_rides(request, driver_id):
 
 
 @api_view(['GET'])
-@csrf_exempt
 def accept_request(request, driver_id, ride_id):
     if ride_id and driver_id:
         ride = Rides.objects.get(id = ride_id)
@@ -38,19 +35,23 @@ def accept_request(request, driver_id, ride_id):
             ride.status = '1'
             ride.pickup_time = datetime.now()
             ride.save()
-            print(time.time())
-            mark_ride_complete(ride.id)
-            print(time.time())
 
         return Response(200)
 
     return Response(400)
 
-async def mark_ride_complete(ride_id):
-    await asyncio.sleep(60)
-    ride = Rides.objects.get(id=ride_id)
-    ride.status = '2'
-    ride.complete_time = datetime.now()
-    ride.save()
+@api_view(['GET'])
+def complete_ride(request, driver_id, ride_id):
+    if ride_id and driver_id:
+        ride = Rides.objects.get(id = ride_id)
+        driver = Driver.objects.get(id=driver_id)
+        if ride and driver and ride.status=='1' and ride.driver == driver:
+            ride.status = '2'
+            ride.complete_time = datetime.now()
+            ride.save()
+
+        return Response(200)
+
+    return Response(400)
 
 

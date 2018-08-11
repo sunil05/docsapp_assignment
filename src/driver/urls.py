@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from driver.views import get_app, accept_request, get_rides
+from driver.views import get_app, accept_request, get_rides, complete_ride
 
 urlpatterns = [
     path('', get_app),
     path('<int:driver_id>/accept_request/<int:ride_id>', accept_request),
+    path('<int:driver_id>/complete_ride/<int:ride_id>', complete_ride),
     path('<int:driver_id>/get_rides', get_rides)
 
 ]
