@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer App</title>
+</head>
+<body>
+    <h1 style="margin-left:40%;">Customer App</h1>
+    <form action="/customer/request_cab" method="get" style="margin-left:30%; margin-top:10%">
+    <label for="customer_id" style="font-size:large">Customer ID: </label>
+    <input id="customer_id" type="text" name="customer_id" value="{{ customer_id }}">
+    <input type="submit" value="RIDE NOW">
+</form>
+</body>
+</html>

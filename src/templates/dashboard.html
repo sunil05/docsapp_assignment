@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+    <h4>
+        <button onclick="get_ride_history()" style="margin-left: 30%; font-size:large">Refresh</button>
+    </h4>
+    <table id="ride_history" border='1' style="margin-left:30%">
+        <tr>
+            <th style="width:20%">Request Id</th>
+            <th style="width:20%">Customer Id</th>
+            <th style="width:20%">Time Elapsed</th>
+            <th style="width:20%">status</th>
+            <th style="width:20%">Driver</th>
+        </tr>
+    </table>
+
+    <script>
+        var service = 'http://localhost:8000';
+
+
+        function get_ride_history(){
+            $.ajax(
+            {
+                type: "GET",
+                url: service+'/get_rides',
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+
+                var trHTML = '';
+
+                $.each(data, function (i, item) {
+                    trHTML += '<tr><td>'+ item.id + '</td><td>'+ item.customer.userid + '</td>' +
+                        '<td>' + Math.floor((new Date() - new Date(item.request_time))/60000) + '&nbsp mins &nbsp' +
+                                  Math.floor((new Date() - new Date(item.request_time))%60000 /1000) +'&nbsp sec </h5>' +
+                         '</td>'
+                    if (item.status == '0'){
+                        trHTML += '<td> Waiting </td>';
+                    } else if (item.status == '1'){
+                        trHTML += '<td> Ongoing </td>';
+                    } else if (item.status == '2'){
+                        trHTML += '<td> Complete </td>';
+                    }
+                   if (item.driver){
+                       trHTML += '<td>'+ item.driver + '</td>';
+                    }
+                });
+                $('#ride_history').find("tr:gt(0)").remove();
+                $('#ride_history').append(trHTML);
+
+                },
+
+                error: function (msg) {
+
+                    alert(msg.responseText);
+                }
+                });
+        }
+
+        $(document).ready(function(){
+            jQuery.support.cors = true;
+                get_ride_history()
+            })
+
+    </script>
+
+</body>
+</html>
