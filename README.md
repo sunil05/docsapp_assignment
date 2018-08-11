@@ -15,3 +15,4 @@ NOTE:
 	3) [hack] Auto completion of ride is currently triggered from driverapp after 5minutes of time interval but will not 		work if drivers app is reloaded, although it mocks actual product behaviour as completion API should be triggered 	     by driver only
 	   Robust solution would be to do asynchronously on backend.
 	4) [TODO] Version 2 solution
+	5) [OPTIMISATION SCOPE] drivers app fetches bookings periodically from backend, a Realtime DB could be used to avoid polling. 
