@@ -9,7 +9,7 @@ class Rides(models.Model):
     status = models.CharField(choices=[('0', 'wait'), ('1', 'ongoing'), ('2', 'completed')],  max_length=5)
     customer = models.ForeignKey('customer.User', null=False, on_delete=models.DO_NOTHING)
     driver = models.ForeignKey('driver.Driver', null=True, on_delete=models.DO_NOTHING )
-
+    nearest_driver = models.CharField(max_length=500, default='[]')
 
 
 #

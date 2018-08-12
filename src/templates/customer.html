@@ -3,13 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Customer App</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
 </head>
 <body>
     <h1 style="margin-left:40%;">Customer App</h1>
     <form action="/customer/request_cab" method="get" style="margin-left:30%; margin-top:10%">
     <label for="customer_id" style="font-size:large">Customer ID: </label>
     <input id="customer_id" type="text" name="customer_id" value="{{ customer_id }}">
+        <label for="location_x" style="font-size:large">Location X: </label>
+    <input id="location_x" type="number" name="location_x"  min="0" max="5" value="0">
+        <label for="location_y" style="font-size:large">Location Y: </label>
+    <input id="location_y" type="number" name="location_y" min="0" max="5" value="0">
     <input type="submit" value="RIDE NOW">
 </form>
+        <script>
+            $(document).ready(function(){
+                console.log("status check");
+                if ('{{ status }}' == 'unavailable'){
+                    console.log("status unavailable");
+                    alert("Rides not available. try again later");
+                }
+            })
+        </script>
+
 </body>
 </html>

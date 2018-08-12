@@ -10,9 +10,6 @@
 </br>		d) django-admin - http://localhost:8000/admin
 </br>
 NOTE:
-</br>	1) [TODO] Deployment Pending (My aws account is suspended for some reason..Will resolve/create and then deploy
-</br>	2) [hack] Currently using sqlite instead mysql as db for simplicity, No code change is required to use mysql except settings
-</br>	3) [hack] Auto completion of ride is currently triggered from driverapp after 5minutes of time interval but will not 		work if drivers app is reloaded, although it mocks actual product behaviour as completion API should be triggered 	     by driver only
+</br>	1) [hack] Auto completion of ride is currently triggered from driverapp after 5minutes of time interval but will not 		work if drivers app is reloaded, although it mocks actual product behaviour as completion API should be triggered 	     by driver only
 </br>	   Robust solution would be to do asynchronously on backend.
-</br>	4) [TODO] Version 2 solution
-</br>	5) [OPTIMISATION SCOPE] drivers app fetches bookings periodically from backend, a Realtime DB could be used to avoid polling. 
+</br>	2) [OPTIMISATION SCOPE] drivers app fetches bookings periodically from backend, a Realtime DB could be used to avoid polling. 

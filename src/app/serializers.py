@@ -11,4 +11,4 @@ class RidesSerializer(serializers.ModelSerializer):
     customer = UserSerializer()
     class Meta:
         model = Rides
-        fields = ('id', 'request_time', 'pickup_time', 'complete_time', 'driver', 'customer', 'status')
+        fields = ('id', 'request_time', 'pickup_time', 'complete_time', 'driver', 'customer', 'status', 'nearest_driver')
