@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Driver App</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
 </head>
 <body>
     <h1 style="margin-left:40%">Driver App - driver id: {{ driver_id }}</h1>
@@ -19,7 +20,7 @@
     </table>
 
     <script>
-        var service = 'http://localhost:8000/driver/{{ driver_id }}';
+        var service = '/driver/{{ driver_id }}';
         console.log(service);
         jQuery.support.cors = true;
         function get_ride_history(){
@@ -37,27 +38,29 @@
 
                     $.each(data, function (i, item) {
 
-                        pending =
 
+                        console.log(item)
                         trHTML += '<tr><td>'
                         if (item[0]){
                             trHTML += '<h5> Req.Id: ' + item[0].id +
                                        '&nbsp&nbsp&nbspCust.Id:' + item[0].customer.userid + '</h5>'+
-                                        '<h5>' + Math.floor((new Date() - new Date(item[0].request_time))/60000) +'&nbspmins ago </h5>' +
+                                        '<h5>' + moment(item[0].request_time ).startOf().fromNow() + '</h5>' +
                                         '<button onclick="accept_ride('+ item[0].id +')">Select</button>'
                             '</td>'
                        }
+                       trHTML += '<td>'
                        if (item[1]){
                             trHTML += '<td>' + '<h5>Req.Id:&nbsp' + item[1].id  +
-                                        '</h5><h5> Request:&nbsp' + Math.floor((new Date() - new Date(item[1].request_time))/60000) +'&nbspmins ago </h5>' +
-                                        '<h5> Picked up:&nbsp' + Math.floor((new Date() - new Date(item[1].pickup_time))/60000) +'&nbspmins ago </h5>' +
+                                        '</h5><h5> Request:&nbsp' + moment(item[1].request_time).startOf().fromNow() + '</h5>' +
+                                        '<h5> Picked up:&nbsp' + moment(item[1].pickup_time ).startOf().fromNow() + '</h5>' +
                                        '</td>'
                                }
+                        trHTML += '<td>'
                        if (item[2]){
-                            trHTML +=  '<td>' + item[2].id +
-                            '<h5> Request: ' + Math.floor((new Date() - new Date(item[1].request_time))/60000) +'&nbspmins ago </h5>' +
-                            '<h5> Picked up: ' + Math.floor((new Date() - new Date(item[1].pickup_time))/60000) +'&nbspmins ago </h5>' +
-                            '<h5> Completed: ' + Math.floor((new Date() - new Date(item[1].complete_time))/60000) +'&nbspmins ago </h5>' +
+                            trHTML +=  item[2].id +
+                           '</h5><h5> Request:&nbsp' + moment(item[2].request_time).startOf('hour').fromNow() + '</h5>' +
+                                        '<h5> Picked up:&nbsp' + moment(item[2].pickup_time ).startOf().fromNow() + '</h5>' +
+                            '<h5> Completed: ' + moment(item[2].complete_time ).startOf().fromNow() + '</h5>' +
                             '</td>' +
                             '</tr>';
                         }
@@ -92,7 +95,7 @@
 
         $(document).ready(function(){
             get_ride_history();
-            <!--setInterval(get_ride_history, 2000);-->
+            setInterval(get_ride_history, 2000);
          })
 
     </script>

@@ -20,14 +20,14 @@
     </table>
 
     <script>
-        var service = 'http://localhost:8000';
+        var service = window.location.hostname;
 
 
         function get_ride_history(){
             $.ajax(
             {
                 type: "GET",
-                url: service+'/get_rides',
+                url: '/get_rides',
                 data: "{}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -38,8 +38,7 @@
 
                 $.each(data, function (i, item) {
                     trHTML += '<tr><td>'+ item.id + '</td><td>'+ item.customer.userid + '</td>' +
-                        '<td>' + Math.floor((new Date() - new Date(item.request_time))/60000) + '&nbsp mins &nbsp' +
-                                  Math.floor((new Date() - new Date(item.request_time))%60000 /1000) +'&nbsp sec </h5>' +
+                        '<td>' + moment(item.request_time ).startOf().fromNow() +'</h5>' +
                          '</td>'
                     if (item.status == '0'){
                         trHTML += '<td> Waiting </td>';
